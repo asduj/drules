@@ -10,7 +10,7 @@ from .fields import (
 from .utils import fn_name_to_pretty_label, float_to_decimal
 
 
-class BaseType(object):
+class BaseType:
     def __init__(self, value):
         self.value = self._assert_valid_value_and_cast(value)
 
@@ -68,8 +68,7 @@ class StringType(BaseType):
     def _assert_valid_value_and_cast(self, value):
         value = value or ""
         if not isinstance(value, str):
-            raise AssertionError("{0} is not a valid string type.".
-                                 format(value))
+            raise AssertionError(f'{value} is not a valid string type')
         return value
 
     @type_operator(FIELD_TEXT)
@@ -117,8 +116,7 @@ class NumericType(BaseType):
         if isinstance(value, Decimal):
             return value
         else:
-            raise AssertionError("{0} is not a valid numeric type.".
-                                 format(value))
+            raise AssertionError(f'{value} is not a valid numeric type.')
 
     @type_operator(FIELD_NUMERIC)
     def equal_to(self, other_numeric):
